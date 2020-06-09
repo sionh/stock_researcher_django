@@ -1,0 +1,90 @@
+{% extends 'shikihos/base.html' %}
+
+{% block content %}
+
+<div id="sidebar" class="col-2">
+    <form action="shikihos" method="get">
+        <div class="row">
+            <div>
+                {{ search_form.year.errors }}
+                <label for="{{ search_form.year.id_for_label }}">発行年月</label>
+                <p>
+                {{ search_form.year }}{{ search_form.quarter }}
+                </p>
+            </div>
+            <div>
+                {{ search_form.code.errors }}
+                {{ search_form.code.label_tag }}
+                <p>
+                {{ search_form.code }}
+                </p>
+            </div>
+            <div>
+                {{ search_form.comp_name.errors }}
+                {{ search_form.comp_name.label_tag }}
+                <p>
+                {{ search_form.comp_name }}
+                </p>
+            </div>
+            <div>
+                {{ search_form.feature.errors }}
+                {{ search_form.feature.label_tag }}
+                <p>
+                {{ search_form.feature }}
+                </p>
+            </div>
+            <div>
+                {{ search_form.topic.errors }}
+                {{ search_form.topic.label_tag }}
+                <p>
+                {{ search_form.topic }}
+                </p>
+            </div>
+            <div>
+                {{ search_form.outlook.errors }}
+                {{ search_form.outlook.label_tag }}
+                <p>
+                {{ search_form.outlook }}
+                </p>
+            </div>
+            <div>
+                <p>
+                {% csrf_token %}
+                <input type="submit" value="検索" class="btn btn-warning">
+                </p>
+            </div>
+        </div>
+    </form>
+</div
+
+<div id="content" class="col-8">
+  <table class="table-striped table-bordered">
+    <thead>
+      <tr>
+        <th width="50">銘柄コード</th>
+        <th width="80">企業名</th>
+        <th width="250">特徴</th>
+        <th width="250">トピック</th>
+        <th width="250">見通し</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        {% if result_shikihos %}
+            {% for shikiho in result_shikihos %}
+            <tr>
+                <td>{{ shikiho.code }}</td>
+                <td>{{ shikiho.comp_name }}</td>
+                <td>{{ shikiho.feature }}</td>
+                <td>{{ shikiho.topic }}</td>
+                <td>{{ shikiho.outlook }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <p>No shikihos are available.</p>
+        {% endif %}
+    </tbody>
+  </table>
+  {% include 'shikihos/pagination.html'%}
+</div>
+{% endblock %}
