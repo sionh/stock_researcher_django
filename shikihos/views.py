@@ -1,10 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
 from .models import Shikiho
 from .forms import SearchForm
 
 # Create your views here.
+
+def detail(request, code):
+    shikiho = get_object_or_404(Shikiho, code=code, year='2020', quarter='1')
+    return render(request, 'shikiho/detail.html', {'shikiho': shikiho})
+
 
 class IndexView(generic.ListView):
     template_name = 'shikihos/index.html'
@@ -51,3 +56,20 @@ class IndexView(generic.ListView):
         
         return shikiho.order_by('code')
     
+
+class CodeView(generic.TemplateView):
+    template_name = 'shikihos/code.html'
+    model = Shikiho
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        shikihos = Shikiho.objects.filter(code=self.kwargs.get('code')).order_by('-year', '-quarter')
+        context['shikihos'] = shikihos
+        if len(shikihos) > 0:
+            shikiho = shikihos[0]
+            context['year'] = shikiho.year
+            context['quarter'] = shikiho.quarter
+            context['shikiho'] = shikiho
+
+        return context

@@ -66,6 +66,7 @@
         <th width="250">特徴</th>
         <th width="250">トピック</th>
         <th width="250">見通し</th>
+        <th width="50"></th>
       </tr>
     </thead>
 
@@ -78,6 +79,7 @@
                 <td>{{ shikiho.feature }}</td>
                 <td>{{ shikiho.topic }}</td>
                 <td>{{ shikiho.outlook }}</td>
+                <td><a href={% url 'code' code=shikiho.code %}>詳細</a></td>
             </tr>
             {% endfor %}
         {% else %}

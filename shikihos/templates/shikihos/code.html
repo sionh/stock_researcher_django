@@ -1,0 +1,191 @@
+{% extends 'shikihos/base.html' %}
+
+{% load app %}
+
+{% block content %}
+
+
+{% if shikihos %}
+<h1>{{ shikiho.code }} {{ shikiho.comp_name }}</h1>
+<table border="1">
+    <tbody>
+        <tr>
+            <th>決算</th>
+            <th>設立</th>
+            <th>上場</th>
+            <th>URL</th>
+            <th>本社</th>
+            <th>業種</th>
+            <th>比較会社</th>
+            <th>従業員</th>
+        </tr>
+        <tr>
+            <td>{{ shikiho.settlement }}</td>
+            <td>{{ shikiho.establishment }}</td>
+            <td>{{ shikiho.stock_listing }}</td>
+            <td>{{ shikiho.url }}</td>
+            <td>{{ shikiho.head_office }}</td>
+            <td>{{ shikiho.type_of_business }}</td>
+            <td>{{ shikiho.compare_company }}</td>
+            <td>{{ shikiho.num_of_employee }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1">
+    <tbody>
+        <tr>
+            <th>連結</th>
+            <th>連結事業</th>
+        </tr>
+        <tr>
+            <td>{{ shikiho.consolidated }}</th>
+            <td>{{ shikiho.consolidated_business }}</th>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1">
+    <tbody>
+        <tr>
+            <th>仕入先</th>
+            <th>販売先</th>
+            <th>証券</th>
+            <th>銀行</th>
+        </tr>
+        <tr>
+            <td>{{ shikiho.supplier }}</th>
+            <td>{{ shikiho.sales_contact }}</th>
+            <td>{{ shikiho.certificate }}</th>
+            <td>{{ shikiho.bank }}</th>
+        </tr>
+    </tbody>
+</table>
+
+<h2>コメント</h2>
+<h3>・特徴</h3>
+{% for shikiho in shikihos %}
+<div class="row">
+    <div class="col-1 ">
+        <span class="badge badge-dark">
+            {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}
+        </span>
+    </div>
+    <div class="col-10">{{ shikiho.feature }}</div>
+</div>
+{% endfor %}
+<h3>・トピック / 次期展望</h3>
+{% for shikiho in shikihos %}
+<div class="row">
+    <div class="col-1 ">
+        <span class="badge badge-dark">
+            {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}
+        </span>
+    </div>
+    <div class="col-5">{{ shikiho.topic }}</div>
+    <div class="col-5">{{ shikiho.outlook }}</div>
+</div>
+{% endfor %}
+
+<div class="row">
+    <div class="col-4">
+        <h2>業績</h2>
+        <table class="table-striped">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>売上高</th>
+                    <th>営業利益</th>
+                    <th>税前利益</th>
+                    <th>純利益</th>
+                    <th>一株利益</th>
+                    <th>一株配当</th>
+                </tr>
+                {% for shikiho in shikihos %}
+                <tr>
+                    <td><span class="badge badge-dark">
+                            {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}予想
+                        </span></td>
+                    <td align="right">{{ shikiho.next_sales }}</td>
+                    <td align="right">{{ shikiho.next_operationg_income }}</td>
+                    <td align="right">{{ shikiho.next_ordinary_income }}</td>
+                    <td align="right">{{ shikiho.next_net_income }}</td>
+                    <td align="right">{{ shikiho.next_net_income_per_share|floatformat:"1" }}</td>
+                    <td align="right">{{ shikiho.next_dividend|floatformat:"1" }}</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-dark">
+                            {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}実績
+                        </span></td>
+                    <td align="right">{{ shikiho.prev_sales }}</td>
+                    <td align="right">{{ shikiho.prev_operating_income }}</td>
+                    <td align="right">{{ shikiho.prev_ordinary_income }}</td>
+                    <td align="right">{{ shikiho.prev_net_income }}</td>
+                    <td align="right">{{ shikiho.prev_net_income_per_share|floatformat:"1" }}</td>
+                    <td align="right">{{ shikiho.prev_dividend.format|floatformat:"1" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-4">
+        <h2>キャッシュフロー</h2>
+        <table class="table-striped">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>営業CF</th>
+                    <th>投資CF</th>
+                    <th>財務CF</th>
+                    <th>現金等</th>
+                </tr>
+                {% for shikiho in shikihos %}
+                <tr>
+                    <td><span class="badge badge-dark">
+                            {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}
+                        </span></td>
+                    <td>{{ shikiho.operationg_cf }}({{ shikiho.prev_operating_cf }})</td>
+                    <td>{{ shikiho.investment_cf }}({{ shikiho.prev_investment_cf }})</td>
+                    <td>{{ shikiho.financing_cf }}({{ shikiho.prev_financing_cf }})</td>
+                    <td>{{ shikiho.cash }}({{ shikiho.prev_cash }})</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-4">
+        <h2>財務状況</h2>
+        <table class="table-striped">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>総資産</th>
+                    <th>自己資本</th>
+                    <th>自己資本比率</th>
+                    <th>資本金</th>
+                    <th>利益余剰金</th>
+                    <th>有利子負債</th>
+                </tr>
+                {% for shikiho in shikihos %}
+                <tr>
+                    <td><span class="badge badge-dark">
+                            {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}
+                        </span></td>
+                    <td>{{ shikiho.total_assets }}</td>
+                    <td>{{ shikiho.owned_capital }}</td>
+                    <td>{{ shikiho.owned_capital_ratio }}</td>
+                    <td>{{ shikiho.capital }}</td>
+                    <td>{{ shikiho.retained_earnings }}</td>
+                    <td>{{ shikiho.interest_bearing_debt }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No shikihos are available.</p>
+{% endif %}
+
+{% endblock %}
