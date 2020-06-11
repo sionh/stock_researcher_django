@@ -1,6 +1,7 @@
 {% extends 'shikihos/base.html' %}
 
 {% load app %}
+{% load humanize %}
 
 {% block content %}
 
@@ -106,10 +107,10 @@
                     <td><span class="badge badge-dark">
                             {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}予想
                         </span></td>
-                    <td align="right">{{ shikiho.next_sales }}</td>
-                    <td align="right">{{ shikiho.next_operationg_income }}</td>
-                    <td align="right">{{ shikiho.next_ordinary_income }}</td>
-                    <td align="right">{{ shikiho.next_net_income }}</td>
+                    <td align="right">{{ shikiho.next_sales|intcomma }}</td>
+                    <td align="right">{{ shikiho.next_operationg_income|intcomma }}</td>
+                    <td align="right">{{ shikiho.next_ordinary_income|intcomma }}</td>
+                    <td align="right">{{ shikiho.next_net_income|intcomma }}</td>
                     <td align="right">{{ shikiho.next_net_income_per_share }}</td>
                     <td align="right">{{ shikiho.next_dividend }}</td>
                 </tr>
@@ -117,10 +118,10 @@
                     <td><span class="badge badge-dark">
                             {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}実績
                         </span></td>
-                    <td align="right">{{ shikiho.prev_sales }}</td>
-                    <td align="right">{{ shikiho.prev_operating_income }}</td>
-                    <td align="right">{{ shikiho.prev_ordinary_income }}</td>
-                    <td align="right">{{ shikiho.prev_net_income }}</td>
+                    <td align="right">{{ shikiho.prev_sales|intcomma }}</td>
+                    <td align="right">{{ shikiho.prev_operating_income|intcomma }}</td>
+                    <td align="right">{{ shikiho.prev_ordinary_income|intcomma }}</td>
+                    <td align="right">{{ shikiho.prev_net_income|intcomma }}</td>
                     <td align="right">{{ shikiho.prev_net_income_per_share }}</td>
                     <td align="right">{{ shikiho.prev_dividend.format }}</td>
                 </tr>
@@ -145,10 +146,10 @@
                     <td><span class="badge badge-dark">
                             {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}
                         </span></td>
-                    <td>{{ shikiho.operationg_cf }}({{ shikiho.prev_operating_cf }})</td>
-                    <td>{{ shikiho.investment_cf }}({{ shikiho.prev_investment_cf }})</td>
-                    <td>{{ shikiho.financing_cf }}({{ shikiho.prev_financing_cf }})</td>
-                    <td>{{ shikiho.cash }}({{ shikiho.prev_cash }})</td>
+                    <td>{{ shikiho.operationg_cf|intcomma }}({{ shikiho.prev_operating_cf|intcomma }})</td>
+                    <td>{{ shikiho.investment_cf|intcomma }}({{ shikiho.prev_investment_cf|intcomma }})</td>
+                    <td>{{ shikiho.financing_cf|intcomma }}({{ shikiho.prev_financing_cf|intcomma }})</td>
+                    <td>{{ shikiho.cash|intcomma }}({{ shikiho.prev_cash|intcomma }})</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -173,12 +174,12 @@
                     <td><span class="badge badge-dark">
                             {{ shikiho.year }}年{% get_quarter_from_num shikiho.quarter %}
                         </span></td>
-                    <td>{{ shikiho.total_assets }}</td>
-                    <td>{{ shikiho.owned_capital }}</td>
+                    <td>{{ shikiho.total_assets|intcomma }}</td>
+                    <td>{{ shikiho.owned_capital|intcomma }}</td>
                     <td>{{ shikiho.owned_capital_ratio }}</td>
-                    <td>{{ shikiho.capital }}</td>
-                    <td>{{ shikiho.retained_earnings }}</td>
-                    <td>{{ shikiho.interest_bearing_debt }}</td>
+                    <td>{{ shikiho.capital|intcomma }}</td>
+                    <td>{{ shikiho.retained_earnings|intcomma }}</td>
+                    <td>{{ shikiho.interest_bearing_debt|intcomma }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
