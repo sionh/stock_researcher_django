@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<div id="sidebar" class="col-2">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+
     <form action="search" method="get">
         <div class="row">
             <div>
@@ -57,7 +60,7 @@
     </form>
 </div>
 
-<div id="content" class="col-8">
+        <div class="col-lg-10">
   <table class="table-striped table-bordered">
     <thead>
       <tr>
@@ -88,5 +91,6 @@
     </tbody>
   </table>
   {% include 'shikihos/pagination.html'%}
+  </div>
 </div>
 {% endblock %}
