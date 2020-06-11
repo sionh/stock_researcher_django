@@ -110,8 +110,8 @@
                     <td align="right">{{ shikiho.next_operationg_income }}</td>
                     <td align="right">{{ shikiho.next_ordinary_income }}</td>
                     <td align="right">{{ shikiho.next_net_income }}</td>
-                    <td align="right">{{ shikiho.next_net_income_per_share|floatformat:"1" }}</td>
-                    <td align="right">{{ shikiho.next_dividend|floatformat:"1" }}</td>
+                    <td align="right">{{ shikiho.next_net_income_per_share }}</td>
+                    <td align="right">{{ shikiho.next_dividend }}</td>
                 </tr>
                 <tr>
                     <td><span class="badge badge-dark">
@@ -121,8 +121,8 @@
                     <td align="right">{{ shikiho.prev_operating_income }}</td>
                     <td align="right">{{ shikiho.prev_ordinary_income }}</td>
                     <td align="right">{{ shikiho.prev_net_income }}</td>
-                    <td align="right">{{ shikiho.prev_net_income_per_share|floatformat:"1" }}</td>
-                    <td align="right">{{ shikiho.prev_dividend.format|floatformat:"1" }}</td>
+                    <td align="right">{{ shikiho.prev_net_income_per_share }}</td>
+                    <td align="right">{{ shikiho.prev_dividend.format }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
